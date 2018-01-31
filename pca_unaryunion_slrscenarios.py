@@ -1,3 +1,9 @@
+## unary union for all the PCA x SLR intersections,
+## these unioned PCA networks will support 'system-level'
+## PUD counting for each scenario.
+
+## after this step, need to remove developed lulc types from these networks
+
 # source activate geowork
 
 import geopandas as gpd

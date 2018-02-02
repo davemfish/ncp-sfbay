@@ -10,19 +10,20 @@ from shapely.ops import unary_union
 import datetime
 import os
 import glob
-
+import argparse
 
 # shapefile representing whole PCA network with developed landuse categories already cut-out
 pca_nodev_path = '../data/bcdc_othernaturalareas/System_level_AOIs_Recmodeling/PCA_notdevt.shp'
 nodevshp = gpd.read_file(pca_nodev_path)
 nodevshp['pca_key'] = nodevshp['fipco'] + nodevshp['joinkey']
 
+BASEDIR = '../PCAexposure_201710/slr_scenarios/'
 
-basedir = '../PCAexposure_201710/slr_scenarios/'
-for scenario in os.listdir(basedir):
+def intersect_byeach_pca(scenario):
+
     print(scenario)
-    scenariodir = os.path.join(basedir, scenario)
-    outdir = os.path.join(scenariodir 'nodevt')
+    scenariodir = os.path.join(BASEDIR, scenario)
+    outdir = os.path.join(scenariodir, 'nodevt')
     if not os.path.exists(outdir):
         # the pca network intersection with the SLR scenario
         pcafile = glob.glob(os.path.join(scenariodir, 'dis*.shp'))[0]
@@ -61,9 +62,21 @@ for scenario in os.listdir(basedir):
                 result_geom = geom1.intersection(geom2.buffer(0.001))
             collection.append(result_geom)
 
-
+        os.makedirs(outdir)
         outgeo = gpd.GeoSeries(collection)
         outdf = gpd.GeoDataFrame(data={'FID_spjoin':fids}, geometry=outgeo, crs=proj4string)
         outdf = outdf[~outdf['geometry'].is_empty]
+
+        outdf = pcashp
         outdf.to_file(os.path.join(outdir, 'diss_nodevt.shp'))
 
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('scenario')
+args = parser.parse_args()
+intersect_byeach_pca(args.scenario)
+
+# scenario_list = ['12inches']
+# for s in scenario_list:
+#     intersect_byeach_pca(s)

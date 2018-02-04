@@ -1,9 +1,7 @@
 
-# unary union for all the PCA x SLR intersections,
-# these unioned PCA networks will support 'system-level'
+# unary union for all the system level AOIs
+# these unioned networks will support 'system-level'
 # PUD counting for each scenario.
-
-## after this step, need to remove developed lulc types from these networks
 
 # source activate geowork
 
@@ -23,7 +21,9 @@ for shpfile in os.listdir(BASEDIR):
 		print(shpfile)
 		outdir = os.path.join(BASEDIR, 'unaryunion')
 		if not os.path.exists(outdir):
-
+			os.makedirs(outdir)
+		if not os.path.isfile(os.path.join(outdir, shpfile)):
+			print('reading', shpfile)
 			shp = gpd.read_file(os.path.join(BASEDIR, shpfile))
 			geom = shp['geometry']
 
@@ -36,7 +36,5 @@ for shpfile in os.listdir(BASEDIR):
 			outdf = shp.iloc[0:1]
 			geo_df = gpd.GeoDataFrame(outdf, crs=shp.crs, geometry=gpd.GeoSeries(unioned))
 
-			print(outdir)
-			os.makedirs(outdir)
 			geo_df.to_file(os.path.join(outdir, shpfile))
 

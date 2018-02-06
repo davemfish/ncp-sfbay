@@ -63,8 +63,8 @@ workingdir <- "."
 # outpath <- file.path(workingdir, "output")
 
 ## Set photos by pointing to dir of csv files
-csvpath <- file.path("../data/pca/bcdc_slr/PCAexposure_201710/flickr/flickr_photos_inbbox")
-# csvpath <- file.path("/home/dmf/Recdev/flickrphotos") ## local path for development
+csvpath <- file.path("../../SF_Bay/pca-userdays-homelocs-v2/flickr_photos_inbbox") # vulpes
+# csvpath <- file.path("../data/pca/bcdc_slr/PCAexposure_201710/flickr/flickr_photos_inbbox") # dmf local
 photofiles <- list.files(csvpath, pattern="*.csv$")
 ## OR an individual file
 # photofiles <- "allpics_2100.csv"

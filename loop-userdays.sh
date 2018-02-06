@@ -1,7 +1,7 @@
 # BASEDIR='../data/bcdc_othernaturalareas/System_level_AOIs_Recmodeling/AOI_intersections/BPAD/unaryunion/'
 # BASEDIR='../data/bcdc_othernaturalareas/System_level_AOIs_Recmodeling/AOI_intersections/Natural_Lands/unaryunion/'
-BASEDIR='../data/bcdc_othernaturalareas/System_level_AOIs_Recmodeling/MergedAOI_noDevt/'
-
+# BASEDIR='../data/bcdc_othernaturalareas/System_level_AOIs_Recmodeling/77inches/'
+BASEDIR='../data/bcdc_othernaturalareas/System_level_AOIs_Recmodeling/0inches/'
 
 for shp in $BASEDIR/*.shp ;
 	do

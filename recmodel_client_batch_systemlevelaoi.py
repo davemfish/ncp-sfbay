@@ -4,7 +4,11 @@ Generated: Mon 28 Nov 2016 09:24:28 AM
 InVEST version: 3.3.1b1.post10+nff1c8fdca089
 """
 
+## USAGE
+# python -u recmodel_client_batch_systemlevelaoi.py &> log.txt
+
 import natcap.invest.recreation.recmodel_client
+import os
 
 args = {
         u'aoi_path': u'',

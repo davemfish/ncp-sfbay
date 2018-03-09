@@ -51,10 +51,34 @@ library(readr)
 
 aoipath <- "~/Recdev/data/SF_Bay/data/bcdc_othernaturalareas/NaturalAreas_ForDave/nlcd_nodevt_utm.tif"
 aoiname <- sub(x=basename(aoipath), pattern=".tif$", replacement="")
-outpath <- file.path("~/Recdev/data/SF_Bay/data/flickr/nlcd_grid_pud/")
+outpath <- file.path("~/Recdev/data/SF_Bay/data/twitter/nlcd_grid_tud/")
 
 ## Set photos by pointing to dir of csv files
-csvpath <- file.path("/home/dmf/Recdev/data/SF_Bay/data/flickr/flickr_photos_inbbox") 
+# csvpath <- file.path("/home/dmf/Recdev/data/SF_Bay/data/flickr/flickr_photos_inbbox") 
+# datasource <- "flickr" 
+csvpath <- file.path("/home/dmf/Recdev/data/SF_Bay/data/twitter/") 
+datasource <- "twitter" 
+
+if (datasource == "twitter"){
+  COL_TYPES <- list(
+    id_str=col_skip(),
+    owner_name=col_character(),
+    date_taken=col_character(),
+    latitude=col_double(),
+    longitude=col_double())
+  } else {
+    if (datsource == "flickr"){
+      COL_TYPES <- list(
+    photo_id=col_skip(),
+    owner_name=col_character(),
+    date_taken=col_character(),
+    latitude=col_double(),
+    longitude=col_double(),
+    accuracy=col_skip())
+    } else {
+      stop("invalid datasource - set as 'flickr' or 'twitter' ")
+    }
+}
 
 ########################
 
@@ -120,13 +144,7 @@ for (p in 1:length(photofiles)){
   ptm <- proc.time()
   photos <- as.data.frame(read_csv(file.path(csvpath, photofiles[p]),
     col_names=TRUE,
-    col_types= list(
-    photo_id=col_skip(),
-    owner_name=col_character(),
-    date_taken=col_character(),
-    latitude=col_double(),
-    longitude=col_double(),
-    accuracy=col_skip())
+    col_types= COL_TYPES
     )) # as.data.frame wrapper required for passing photos to createTree()
   totaltime <- proc.time() - ptm
   
